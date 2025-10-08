@@ -17,7 +17,7 @@ def sync():
 
         return {}
     except subprocess.CalledProcessError as e:
-        raise HTTPException(status_code=500, detail=f"BW CLI error: {e.output}")
+        raise HTTPException(status_code=500, detail=f"BW CLI error : {e.output}")
 
 @app.get("/object/item/{item_id}")
 def get_item(item_id: str):
