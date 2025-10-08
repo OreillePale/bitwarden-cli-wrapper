@@ -6,8 +6,7 @@ RUN apk add wget
 RUN npm install -g @bitwarden/cli
 
 RUN apk add python3
-RUN apk add py3-pip
-RUN apk pip3 install "fastapi[standard]"
+RUN python -m pip install "fastapi[standard]"
 
 # Copy entrypoint
 COPY entrypoint.sh /entrypoint.sh
