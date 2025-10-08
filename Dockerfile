@@ -7,8 +7,9 @@ RUN npm install -g @bitwarden/cli
 
 RUN apk add python3
 RUN apk add py3-pip
-RUN deactivate
 RUN pip3 install fastapi uvicorn requests
+
+WORKDIR /
 
 # Copy entrypoint
 COPY entrypoint.sh /entrypoint.sh
