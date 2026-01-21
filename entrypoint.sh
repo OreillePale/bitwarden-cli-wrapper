@@ -4,19 +4,19 @@ set -e
 # Configure BW CLI server
 bw config server "${BW_HOST}"
 
-# Log in
+# ---- LOGIN (STATEFUL — required for KDF) ----
 if [ -n "$BW_CLIENTID" ] && [ -n "$BW_CLIENTSECRET" ]; then
     echo "Using API key to log in"
-    bw login --apikey --raw
+    bw login --apikey --passwordenv BW_PASSWORD
 else
     echo "Using username/password to log in"
-    bw login "${BW_USER}" --passwordenv BW_PASSWORD --raw
+    bw login "${BW_USER}" --passwordenv BW_PASSWORD
 fi
 
-# Unlock vault and export BW_SESSION
-export BW_SESSION=$(bw unlock --passwordenv BW_PASSWORD --raw)
+# ---- UNLOCK (stateless, export session) ----
+export BW_SESSION="$(bw unlock --passwordenv BW_PASSWORD --raw)"
 
-# Optional: check session
+# Optional sanity check
 bw unlock --check
 
 echo "Starting FastAPI on port 8088..."
