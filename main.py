@@ -6,6 +6,12 @@ from fastapi.responses import JSONResponse
 
 app = FastAPI()
 
+@app.get("/health")
+def health():
+    """Simple health check for liveness probe"""
+    return {"status": "ok"}
+
+# legacy code, remove ?
 @app.put("/sync")
 def sync():
     try:
