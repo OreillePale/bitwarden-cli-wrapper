@@ -37,9 +37,12 @@ def get_item(item_id: str):
             env=os.environ  # includes BW_SESSION
         )
         data = json.loads(output)
+        print("received data:",data)
     except subprocess.CalledProcessError as e:
+        print(e)
         raise HTTPException(status_code=500, detail=f"BW CLI error: {e.output}")
     except json.JSONDecodeError:
+        print("Invalid JSON from BW CLI:",output)
         raise HTTPException(status_code=500, detail="Invalid JSON from BW CLI")
 
     result = {}
